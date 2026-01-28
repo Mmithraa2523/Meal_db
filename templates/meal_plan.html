@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Meal Plan | Culinary</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/style.css') }}"
+    />
+  </head>
+  <body>
+    <!-- ========== SIDEBAR ========== -->
+    <div class="sidebar">
+      <div class="logo">🍴 Culinary</div>
+
+      <ul class="menu">
+        <li><a href="/dashboard">🔍 Discover</a></li>
+        <li><a href="/favorites">❤️ Favorites</a></li>
+        <li class="active">📅 Meal Plan</li>
+        <li><a href="/quick-meals">⚡ Quick Meals</a></li>
+      </ul>
+
+      <div class="user">
+        <p>👤 Logged In</p>
+        <a href="/logout" class="logout">Sign Out</a>
+      </div>
+    </div>
+
+    <div class="container">
+
+    <h1 class="page-title">Your <span>Meal Planner</span></h1>
+    <p class="subtitle">Your planned meals for the week.</p>
+
+    {% set days = ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'] %}
+    {% set meal_types = ['Breakfast','Lunch','Dinner'] %}
+
+    <div class="week-grid">
+
+        {% for day in days %}
+        <div class="day-card">
+            <h3>{{ day }}</h3>
+
+            {% for m in meal_types %}
+            <div class="meal-row">
+                <span>{{ m }}</span>
+
+                {% if plan.get(day) and plan[day].get(m) %}
+                    <div class="planned-meal">
+                        {{ plan[day][m].name }}
+                        <a href="/remove-meal-plan/{{ plan[day][m].id }}" class="remove-btn">❌</a>
+                    </div>
+                {% else %}
+                    <span class="empty-meal">—</span>
+                {% endif %}
+
+            </div>
+            {% endfor %}
+
+        </div>
+        {% endfor %}
+
+    </div>
+</div>
+
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+  </body>
+</html>

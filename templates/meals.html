@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Meals | Culinary</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+<!-- ========== SIDEBAR ========== -->
+<div class="sidebar">
+    <div class="logo">🍴 Culinary</div>
+
+    <ul class="menu">
+        <li><a href="/dashboard">🔍 Discover</a></li>
+        <li><a href="/favorites">❤️ Favorites</a></li>
+        <li><a href="/meal-plan">📅 Meal Plan</a></li>
+        <li><a href="/quick-meals">⚡ Quick Meals</a></li>
+    </ul>
+
+    <div class="user">
+        <p>👤 Logged In</p>
+        <a href="/logout" class="logout">Sign Out</a>
+    </div>
+</div>
+
+<!-- ========== MAIN CONTENT ========== -->
+<div class="main">
+
+    <h1>Search <span>Results</span></h1>
+    <p class="subtitle">
+        Discover delicious meals from around the world.
+    </p>
+
+    {% if meals %}
+    <div class="meals-grid">
+
+        {% for meal in meals %}
+        <div class="meal-card">
+            <img src="{{ meal.strMealThumb }}" alt="{{ meal.strMeal }}">
+
+            <div class="meal-info">
+                <h3>{{ meal.strMeal }}</h3>
+                <p>{{ meal.strCategory }} | {{ meal.strArea }}</p>
+            </div>
+
+            <div class="meal-actions">
+                <a href="/recipe/{{ meal.idMeal }}" class="view-btn">View Recipe</a>
+                <a href="/favorite/{{ meal.idMeal }}" class="fav-btn">❤️</a>
+            </div>
+        </div>
+        {% endfor %}
+
+    </div>
+    {% else %}
+        <div class="empty">😕 No meals found. Try another search.</div>
+    {% endif %}
+
+</div>
+<script src="{{ url_for('static', filename='js/script.js') }}"></script>
+
+</body>
+</html>

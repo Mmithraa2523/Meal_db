@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Culinary | Discover</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+<!-- ========== SIDEBAR ========== -->
+<div class="sidebar">
+    <div class="logo">🍴 Culinary</div>
+
+    <ul class="menu">
+        <li class="active">🔍 Discover</li>
+        <li><a href="/favorites">❤️ Favorites</a></li>
+        <li><a href="/meal-plan">📅 Meal Plan</a></li>
+        <li><a href="/quick-meals">⚡ Quick Meals</a></li>
+    </ul>
+
+    <div class="user">
+        <p>👤 Logged In</p>
+        <a href="/logout" class="logout">Sign Out</a>
+    </div>
+</div>
+
+<!-- ========== MAIN CONTENT ========== -->
+<div class="main">
+
+    <h1>Discover Your Next <span>Culinary Masterpiece</span></h1>
+    <p class="subtitle">
+        Search thousands of delicious recipes, plan meals, and track nutrition all in one place.
+    </p>
+
+    <!-- Search Bar -->
+    <form action="/search" method="get" class="search-box">
+        <input type="text" name="q" placeholder="What are you craving today?" required>
+        <button type="submit">Search</button>
+    </form>
+
+    <!-- Quick Tags -->
+    <div class="tags">
+        <a href="/search?q=pasta">Pasta</a>
+        <a href="/search?q=chicken">Chicken</a>
+        <a href="/search?q=beef">Beef</a>
+        <a href="/search?q=salad">Salad</a>
+        <a href="/search?q=vegan">Vegan</a>
+        <a href="/search?q=dessert">Dessert</a>
+    </div>
+
+    <div class="empty">
+        🍽️ Start searching to see recipes
+    </div>
+
+</div>
+<script src="{{ url_for('static', filename='js/script.js') }}"></script>
+
+</body>
+</html>

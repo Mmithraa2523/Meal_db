@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Quick Meals | Culinary</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/style.css') }}"
+    />
+  </head>
+  <body>
+    <!-- ========== SIDEBAR ========== -->
+    <div class="sidebar">
+      <div class="logo">🍴 Culinary</div>
+
+      <ul class="menu">
+        <li><a href="/dashboard">🔍 Discover</a></li>
+        <li><a href="/favorites">❤️ Favorites</a></li>
+        <li><a href="/meal-plan">📅 Meal Plan</a></li>
+        <li class="active">⚡ Quick Meals</li>
+      </ul>
+
+      <div class="user">
+        <p>👤 Logged In</p>
+        <a href="/logout" class="logout">Sign Out</a>
+      </div>
+    </div>
+
+    <!-- ========== MAIN CONTENT ========== -->
+    <div class="main">
+      <h1>⚡ Quick <span>Meals</span></h1>
+      <p class="subtitle">
+        Meals with the least number of ingredients. Fast and easy!
+      </p>
+
+      <!-- 🔍 SEARCH -->
+      <form method="get" action="/quick-meals" class="search-box">
+        <input
+          type="text"
+          name="q"
+          placeholder="Search meal name"
+          value="{{ request.args.get('q','') }}"
+        />
+        <button type="submit">Search</button>
+      </form>
+
+      <!-- 🟡 SUMMARY MESSAGE -->
+      {% if summary %}
+      <div class="summary-box">
+        <strong>{{ summary.name }}</strong> Requires
+        <strong>{{ summary.count }}</strong> ingredients.
+      </div>
+      {% endif %}
+
+      <!-- 🍽️ MEALS GRID -->
+      {% if meals and meals|length > 0 %}
+      <div class="meals-grid">
+        {% for meal in meals %}
+        <div class="meal-card">
+          <img src="{{ meal.image }}" alt="{{ meal.name }}" />
+
+          <div class="meal-info">
+            <span class="badge">{{ meal.category }}</span>
+            <h3>{{ meal.name }}</h3>
+            <p>{{ meal.ingredients }} ingredients</p>
+          </div>
+
+          <div class="meal-actions">
+            <a href="/recipe/{{ meal.id }}" class="view-btn"> View Recipe → </a>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+      {% else %}
+      <div class="empty">⚡ No quick meals found</div>
+      {% endif %}
+    </div>
+
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+  </body>
+</html>

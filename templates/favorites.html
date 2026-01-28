@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Favorites | Culinary</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+<!-- ========== SIDEBAR ========== -->
+<div class="sidebar">
+    <div class="logo">🍴 Culinary</div>
+
+    <ul class="menu">
+        <li><a href="/dashboard">🔍 Discover</a></li>
+        <li class="active">❤️ Favorites</li>
+        <li><a href="/meal-plan">📅 Meal Plan</a></li>
+        <li><a href="/quick-meals">⚡ Quick Meals</a></li>
+    </ul>
+
+    <div class="user">
+        <p>👤 Logged In</p>
+        <a href="/logout" class="logout">Sign Out</a>
+    </div>
+</div>
+
+<!-- ========== MAIN CONTENT ========== -->
+<div class="main">
+
+    <h1>Your <span>Favorite Recipes</span></h1>
+    <p class="subtitle">All the meals you love, saved in one place.</p>
+
+    {% if meals %}
+    <div class="meals-grid">
+
+        {% for meal in meals %}
+        <div class="meal-card">
+
+            <!-- ✅ IMAGE FIX -->
+            <img src="{{ meal[3] }}" alt="{{ meal[2] }}">
+
+            <div class="meal-info">
+                <h3>{{ meal[2] }}</h3>
+            </div>
+
+            <div class="meal-actions">
+                <a href="/recipe/{{ meal[1] }}" class="view-btn">View</a>
+                <a href="/remove-favorite/{{ meal[0] }}" class="remove-btn">Remove</a>
+            </div>
+
+        </div>
+        {% endfor %}
+
+    </div>
+    {% else %}
+        <div class="empty">❤️ No favorites yet</div>
+    {% endif %}
+
+</div>
+
+</body>
+</html>
